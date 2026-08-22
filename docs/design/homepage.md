@@ -52,6 +52,68 @@ Individual counsellors may offer these services, but Muslim identity and faith-i
 
 
 
+IMPORTANT: The attached homepage mockup is the PRIMARY VISUAL REFERENCE.
+
+
+
+Study it carefully before implementation.
+
+
+
+Reproduce its:
+
+\- overall composition
+
+\- section proportions
+
+\- whitespace
+
+\- content widths
+
+\- typography hierarchy
+
+\- visual rhythm
+
+\- hero composition
+
+\- image sizing/cropping
+
+\- border radii
+
+\- spacing relationships
+
+\- colour relationships
+
+\- density
+
+\- transition between light and dark sections
+
+
+
+Do not treat the mockup as loose inspiration.
+
+
+
+The goal is high visual fidelity.
+
+
+
+However, where the mockup conflicts with docs/design/homepage.md:
+
+\- the mockup governs VISUAL APPEARANCE
+
+\- homepage.md governs COPY, UX LOGIC, PRODUCT BEHAVIOUR, ACCESSIBILITY, and PRODUCT CLAIMS
+
+
+
+Do not copy accidental AI-generated artifacts, malformed text, placeholder inaccuracies, or invented functionality visible in the mockup.
+
+
+
+Before coding, inspect the reference image and homepage.md together and identify the page's major visual measurements and layout patterns.
+
+
+
 \---
 
 
