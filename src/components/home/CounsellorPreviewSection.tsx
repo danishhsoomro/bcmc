@@ -17,39 +17,41 @@ export function CounsellorPreviewSection() {
   const { humanity } = homeContent;
 
   return (
-    <section className="bg-[var(--color-cream)] px-5 py-20 md:px-5 md:py-24 lg:py-28">
-      <div className="mx-auto grid max-w-[1380px] gap-10 lg:grid-cols-[minmax(280px,320px)_minmax(0,1fr)] lg:items-start lg:gap-12">
-        <div className="max-w-[320px]">
-          <h2 className="font-serif text-[2.5rem] leading-[1.08] text-[var(--color-forest-900)] md:text-5xl lg:text-[3.125rem]">
-            {humanity.heading}
-          </h2>
-          <p className="mt-6 text-base leading-7 text-[var(--color-stone)]">
-            {humanity.body}
-          </p>
-          <Link
-            href={humanity.browseLink.href}
-            className="mt-7 inline-flex min-h-11 items-center rounded-[var(--radius-sm)] text-sm font-semibold text-[var(--color-forest-900)] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-antique-gold)]"
-          >
-            {humanity.browseLink.label}
-            <span className="ml-2" aria-hidden="true">
-              →
-            </span>
-          </Link>
-        </div>
-
-        <div className="relative min-w-0">
-          <div className="-mx-5 flex snap-x gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] md:mx-0 md:flex md:overflow-x-auto md:px-0 md:pb-4 lg:grid lg:grid-cols-4 lg:gap-3.5 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
-            {humanity.counsellors.map((counsellor) => (
-              <CounsellorCard key={counsellor.name} counsellor={counsellor} />
-            ))}
+    <section id="counsellors" className="bcmc-section-large bg-[var(--color-cream)]">
+      <div className="bcmc-container">
+        <div className="grid gap-10 lg:w-[min(1380px,calc(100vw-(2*var(--bcmc-gutter))))] lg:grid-cols-[minmax(280px,320px)_minmax(0,1fr)] lg:items-start lg:gap-12">
+          <div className="max-w-[320px]">
+            <h2 className="bcmc-type-section-compact text-[var(--color-forest-900)]">
+              {humanity.heading}
+            </h2>
+            <p className="bcmc-type-body-sm mt-6 text-[var(--color-stone)]">
+              {humanity.body}
+            </p>
+            <Link
+              href={humanity.browseLink.href}
+              className="mt-7 inline-flex min-h-11 items-center rounded-[var(--radius-sm)] text-sm font-semibold text-[var(--color-forest-900)] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-antique-gold)]"
+            >
+              {humanity.browseLink.label}
+              <span className="ml-2" aria-hidden="true">
+                →
+              </span>
+            </Link>
           </div>
-          <Link
-            href={humanity.browseLink.href}
-            className="absolute -right-3 top-[40%] hidden h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-white text-[var(--color-forest-900)] shadow-sm transition-colors hover:border-[var(--color-sage)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-antique-gold)] xl:flex"
-            aria-label="Browse more counsellors"
-          >
-            <ArrowRight className="h-5 w-5 stroke-[1.7]" aria-hidden="true" />
-          </Link>
+
+          <div className="relative min-w-0">
+            <div className="-mx-5 flex snap-x gap-4 overflow-x-auto px-5 pb-4 [scrollbar-width:none] md:mx-0 md:flex md:overflow-x-auto md:px-0 md:pb-4 lg:grid lg:grid-cols-4 lg:gap-3.5 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
+              {humanity.counsellors.map((counsellor) => (
+                <CounsellorCard key={counsellor.name} counsellor={counsellor} />
+              ))}
+            </div>
+            <Link
+              href={humanity.browseLink.href}
+              className="absolute -right-3 top-[40%] hidden h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-white text-[var(--color-forest-900)] shadow-sm transition-colors hover:border-[var(--color-sage)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-antique-gold)] xl:flex"
+              aria-label="Browse more counsellors"
+            >
+              <ArrowRight className="h-5 w-5 stroke-[1.7]" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
@@ -219,7 +221,7 @@ function getClientGenderMarker(
   const acceptedGender = acceptedClientGenders[0].toLowerCase();
 
   if (acceptedGender === "women" || acceptedGender === "female") {
-    return { icon: Venus, label: "Works with women only" };
+    return { icon: Venus, label: "Women only" };
   }
 
   if (acceptedGender === "men" || acceptedGender === "male") {

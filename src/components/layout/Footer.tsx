@@ -10,7 +10,7 @@ export function Footer() {
 
   return (
     <footer id="footer" className="bg-[var(--color-forest-900)] text-[var(--color-cream)]">
-      <div className="mx-auto max-w-[1240px] px-5 py-11 md:px-8 md:py-13">
+      <div className="bcmc-container py-11 md:py-13">
         <div className="grid gap-10 md:grid-cols-2 md:gap-x-14 md:gap-y-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(0,0.82fr)_minmax(0,0.92fr)_minmax(0,1.1fr)] lg:gap-10">
           <div className="max-w-[440px] lg:max-w-none">
             <Link
@@ -27,7 +27,7 @@ export function Footer() {
               />
             </Link>
 
-            <p className="mt-5 max-w-[400px] text-base leading-7 text-[rgba(248,245,240,0.84)]">
+            <p className="bcmc-type-body-sm mt-5 max-w-[400px] text-[rgba(248,245,240,0.84)]">
               {footer.brand.description}
             </p>
 
@@ -49,7 +49,7 @@ export function Footer() {
               </ul>
             </nav>
 
-            <p className="mt-5 max-w-[430px] text-[0.8125rem] leading-6 text-[rgba(248,245,240,0.6)]">
+            <p className="bcmc-type-meta mt-5 max-w-[430px] text-[rgba(248,245,240,0.6)]">
               {footer.brand.disclaimer}
             </p>
             <Link
@@ -65,7 +65,7 @@ export function Footer() {
 
           {footer.columns.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
-              <h2 className="text-sm font-semibold text-[var(--color-cream)]">
+              <h2 className="bcmc-type-meta font-semibold text-[var(--color-cream)]">
                 {column.heading}
               </h2>
               <ul className="mt-4 grid gap-3 text-sm leading-6">

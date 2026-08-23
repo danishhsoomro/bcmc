@@ -14,18 +14,18 @@ export function TrustSection() {
   const { trust } = homeContent;
 
   return (
-    <section className="bg-[var(--color-forest-900)] px-5 py-24 md:px-8 md:py-28 lg:py-32">
-      <div className="mx-auto max-w-[1240px]">
+    <section className="bcmc-section-large bg-[var(--color-forest-900)]">
+      <div className="bcmc-container">
         <div data-motion="trust-heading">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-champagne)]/75">
+          <p className="bcmc-eyebrow text-[var(--color-champagne)]/75">
             {trust.eyebrow}
           </p>
-          <h2 className="mt-4 max-w-2xl font-serif text-[2.8rem] leading-[1.08] text-[var(--color-cream)] md:text-[3.35rem] lg:text-[3.5rem]">
+          <h2 className="bcmc-type-section-primary mt-4 max-w-[680px] text-[var(--color-cream)]">
             {trust.heading}
           </h2>
         </div>
 
-        <div className="mt-11 grid gap-12 md:grid-cols-2 md:gap-x-16 md:gap-y-14 lg:grid-cols-[repeat(4,minmax(0,1fr))] lg:gap-0">
+        <div className="mt-12 grid gap-12 md:grid-cols-2 md:gap-x-16 md:gap-y-14 lg:grid-cols-[repeat(4,minmax(0,1fr))] lg:gap-0">
           {trust.principles.map((principle, index) => (
             <TrustPillar
               key={principle.id}
@@ -69,11 +69,11 @@ function TrustPillar({
         <Icon className="h-8 w-8 stroke-[1.7]" aria-hidden="true" />
       </div>
       <div className="mt-6 flex min-h-14 items-start">
-        <h3 className="max-w-[220px] text-xl font-semibold leading-7 text-[var(--color-cream)] [text-wrap:balance]">
+        <h3 className="bcmc-type-feature max-w-[220px] font-semibold text-[var(--color-cream)] [text-wrap:balance]">
           {principle.title}
         </h3>
       </div>
-      <p className="mt-4 max-w-[260px] text-base leading-7 text-[var(--color-cream)]/75">
+      <p className="bcmc-type-body-sm mt-4 max-w-[260px] text-[var(--color-cream)]/75">
         {principle.body}
       </p>
       {showDivider ? (

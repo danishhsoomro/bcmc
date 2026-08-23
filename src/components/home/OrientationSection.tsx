@@ -40,10 +40,10 @@ export function OrientationSection() {
   return (
     <section
       id="orientation"
-      className="bg-[var(--color-cream)] px-5 py-20 md:px-8 md:py-24 lg:py-28"
+      className="bcmc-section-large bg-[var(--color-cream)]"
     >
-      <div className="mx-auto max-w-[1240px]">
-        <h2 className="font-serif text-[2.5rem] leading-[1.08] text-[var(--color-forest-900)] md:text-5xl">
+      <div className="bcmc-container">
+        <h2 className="bcmc-type-section-primary text-[var(--color-forest-900)]">
           {orientation.heading}
         </h2>
 
@@ -83,13 +83,13 @@ function StageItem({
         </div>
         <h3
           data-motion="orientation-title"
-          className="mt-7 text-lg font-semibold leading-6 text-[var(--color-forest-900)]"
+          className="bcmc-type-feature mt-7 font-semibold text-[var(--color-forest-900)]"
         >
           {step.title}
         </h3>
         <p
           data-motion="orientation-copy"
-          className="mt-4 text-base leading-7 text-[var(--color-stone)]"
+          className="bcmc-type-body-sm mt-4 text-[var(--color-stone)]"
         >
           {step.body.map((line) => (
             <span key={line} className="block">

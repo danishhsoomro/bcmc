@@ -1,9 +1,10 @@
 export const homeContent = {
   navigation: [
-    { label: "How It Works", href: "#orientation" },
+    { label: "Find Support", href: "/find" },
+    { label: "Understanding Counselling", href: "/resources/how-counselling-can-help" },
     { label: "For Counsellors", href: "#footer" },
-    { label: "About", href: "#footer" },
-    { label: "Browse Counsellors", href: "/find" },
+    { label: "Community", href: "#footer" },
+    { label: "About BCMC", href: "#footer" },
   ],
   hero: {
     headline: "You don't need to know exactly what you need.",
@@ -43,6 +44,32 @@ export const homeContent = {
         id: "decide",
         title: "You decide.",
         body: ["You’re in control.", "Choose who to contact,", "or choose not to."],
+      },
+    ],
+  },
+  organizationalHero: {
+    eyebrow: "MORE THAN A DIRECTORY",
+    heading: "We’re building stronger paths to mental-health support.",
+    body: [
+      "Finding a counsellor is one part of the picture.",
+      "BCMC brings together people seeking support, Muslim counsellors, and community organizations to make mental-health support easier to understand, navigate and access across BC.",
+    ],
+    link: { label: "Why BCMC exists", href: "#" },
+    pillars: [
+      {
+        id: "support-seekers",
+        heading: "People seeking support",
+        body: "Find and understand your options, without needing to know exactly what you’re looking for.",
+      },
+      {
+        id: "counsellors",
+        heading: "Counsellors",
+        body: "Connect, learn, collaborate and build stronger professional referral networks.",
+      },
+      {
+        id: "communities",
+        heading: "Communities & organizations",
+        body: "Build understanding, strengthen referral pathways and connect communities with mental-health professionals.",
       },
     ],
   },
@@ -136,6 +163,11 @@ export const homeContent = {
         initials: "OS",
       },
     ],
+  },
+  contactReassurance: {
+    heading: "The first step doesn’t have to be the final decision.",
+    body: "Reaching out to a counsellor doesn’t mean you’ve decided they’re the one. You can ask about availability, fees, how they work, or arrange a consultation before deciding what you’d like to do next.",
+    link: { label: "What happens when I reach out?", href: "/resources/what-to-expect" },
   },
   agency: {
     heading: "Want to understand\ncounselling first?",

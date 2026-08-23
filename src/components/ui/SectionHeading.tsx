@@ -17,7 +17,7 @@ export function SectionHeading({
     <div className="max-w-3xl">
       {eyebrow ? (
         <p
-          className={`mb-5 text-xs font-semibold uppercase tracking-[0.18em] ${
+          className={`bcmc-eyebrow mb-5 ${
             inverse ? "text-[var(--color-sage)]" : "text-[var(--color-leaf)]"
           }`}
         >
@@ -25,7 +25,7 @@ export function SectionHeading({
         </p>
       ) : null}
       <h2
-        className={`font-serif text-4xl leading-[1.05] md:text-6xl ${
+        className={`bcmc-type-section-primary ${
           inverse ? "text-[var(--color-cream)]" : "text-[var(--color-forest-900)]"
         }`}
       >
@@ -33,7 +33,7 @@ export function SectionHeading({
       </h2>
       {children ? (
         <div
-          className={`mt-6 max-w-2xl text-lg leading-8 ${
+          className={`bcmc-type-lead mt-6 max-w-2xl ${
             inverse ? "text-white/78" : "text-[var(--color-stone)]"
           }`}
         >
