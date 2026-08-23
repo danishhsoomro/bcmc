@@ -1,10 +1,25 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const siteDescription =
+  "Connecting Muslim communities and mental-health professionals across BC to make support easier to understand, navigate and access.";
+
 export const metadata: Metadata = {
   title: "BC Muslim Counsellors",
-  description:
-    "A discovery and referral resource for qualified Muslim counselling professionals in British Columbia.",
+  description: siteDescription,
+  icons: {
+    icon: "/brand/favicon.png",
+  },
+  openGraph: {
+    title: "BC Muslim Counsellors",
+    description: siteDescription,
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "BC Muslim Counsellors",
+    description: siteDescription,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

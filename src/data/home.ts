@@ -202,7 +202,7 @@ export const homeContent = {
   footer: {
     brand: {
       description:
-        "Helping people find and understand their counselling options, with clearer information and less guesswork.",
+        "Connecting Muslim communities and mental-health professionals across BC to make support easier to understand, navigate and access.",
       disclaimer:
         "BCMC is a discovery resource. It does not provide counselling, clinical advice, or emergency services.",
       urgent: { label: "Need urgent help?", href: "#" },
