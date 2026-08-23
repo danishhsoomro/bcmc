@@ -4,7 +4,7 @@ export const homeContent = {
     { label: "Understanding Counselling", href: "/resources/how-counselling-can-help" },
     { label: "For Counsellors", href: "#footer" },
     { label: "Community", href: "#footer" },
-    { label: "About BCMC", href: "#footer" },
+    { label: "About BCMC", href: "/about" },
   ],
   hero: {
     headline: "You don't need to know exactly what you need.",
@@ -226,7 +226,7 @@ export const homeContent = {
       {
         heading: "About BCMC",
         links: [
-          { label: "About BCMC", href: "#" },
+          { label: "About BCMC", href: "/about" },
           { label: "For counsellors", href: "#" },
           { label: "How we verify counsellors", href: "#" },
           { label: "Contact", href: "#" },

@@ -63,6 +63,14 @@ img {
   max-width: 100%;
 }
 
+.bcmc-scrollbar-hide {
+  scrollbar-width: none;
+}
+
+.bcmc-scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .bcmc-container {
   width: 100%;
   max-width: var(--bcmc-container-max);

@@ -11,6 +11,21 @@ export function Footer() {
   return (
     <footer id="footer" className="bg-[var(--color-forest-900)] text-[var(--color-cream)]">
       <div className="bcmc-container py-11 md:py-13">
+        <div className="mb-10 rounded-[var(--radius-md)] bg-[var(--color-cream)]/[0.08] p-5 md:flex md:items-center md:justify-between md:gap-8">
+          <p className="text-[1rem] font-semibold leading-6 text-[var(--color-cream)]">
+            If you need urgent help right now
+          </p>
+          <Link
+            href={footer.brand.urgent.href}
+            className="mt-3 inline-flex min-h-10 items-center rounded-sm text-sm font-semibold text-[var(--color-champagne)] underline-offset-4 transition-colors hover:text-[var(--color-cream)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-champagne)] md:mt-0"
+          >
+            {footer.brand.urgent.label}
+            <span className="ml-2" aria-hidden="true">
+              →
+            </span>
+          </Link>
+        </div>
+
         <div className="grid gap-10 md:grid-cols-2 md:gap-x-14 md:gap-y-12 lg:grid-cols-[minmax(0,1.65fr)_minmax(0,0.82fr)_minmax(0,0.92fr)_minmax(0,1.1fr)] lg:gap-10">
           <div className="max-w-[440px] lg:max-w-none">
             <Link
@@ -52,15 +67,6 @@ export function Footer() {
             <p className="bcmc-type-meta mt-5 max-w-[430px] text-[rgba(248,245,240,0.6)]">
               {footer.brand.disclaimer}
             </p>
-            <Link
-              href={footer.brand.urgent.href}
-              className="mt-2 inline-flex rounded-sm text-sm font-medium text-[rgba(248,245,240,0.82)] underline-offset-4 transition-colors hover:text-[var(--color-cream)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-champagne)]"
-            >
-              {footer.brand.urgent.label}
-              <span className="ml-2" aria-hidden="true">
-                →
-              </span>
-            </Link>
           </div>
 
           {footer.columns.map((column) => (
