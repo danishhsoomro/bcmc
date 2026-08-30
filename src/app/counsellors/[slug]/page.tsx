@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   Accessibility,
@@ -231,34 +232,60 @@ export default async function CounsellorProfilePage(
         {view.consultationSummary ? (
           <section className="border-y border-[var(--color-forest-900)]/10 bg-[#F4EEE6]">
             <div className="bcmc-container py-5 md:py-6">
-              <div className="flex max-w-[1040px] flex-col gap-3 md:flex-row md:items-center md:gap-5">
-                <div
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-mist)] text-[var(--color-leaf)]"
-                  aria-hidden="true"
-                >
-                  <MessageCircle className="h-4.5 w-4.5 stroke-[1.8]" />
+              <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center">
+                <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-5">
+                  <div
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--color-mist)] text-[var(--color-leaf)]"
+                    aria-hidden="true"
+                  >
+                    <MessageCircle className="h-4.5 w-4.5 stroke-[1.8]" />
+                  </div>
+                  <div>
+                    <h2 className="font-serif text-[clamp(1.3rem,1.18rem+0.42vw,1.62rem)] leading-[1.18] text-[var(--color-forest-900)]">
+                      Reaching out does not commit you to ongoing counselling.
+                    </h2>
+                    <p className="mt-1.5 max-w-[720px] text-[0.88rem] leading-6 text-[var(--color-stone)]">
+                      {view.heroReassuranceSupport}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className="font-serif text-[clamp(1.3rem,1.18rem+0.42vw,1.62rem)] leading-[1.18] text-[var(--color-forest-900)]">
-                    Reaching out does not commit you to ongoing counselling.
+                <div className="border-t border-[var(--color-forest-900)]/10 pt-4 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
+                  <h2 className="font-serif text-[1.18rem] leading-tight text-[var(--color-forest-900)]">
+                    Thinking about reaching out?
                   </h2>
-                  <p className="mt-1.5 max-w-[720px] text-[0.88rem] leading-6 text-[var(--color-stone)]">
-                    {view.heroReassuranceSupport}
-                  </p>
+                  {view.contactHandoff.consultation?.isFree ? (
+                    <p className="mt-2 text-[0.84rem] leading-5 text-[var(--color-stone)]">
+                      A free {view.contactHandoff.consultation.minutes}-minute
+                      consultation is available.
+                    </p>
+                  ) : null}
+                  <ContactHandoff
+                    className="mt-2.5 inline-flex min-h-9 items-center gap-1.5 rounded-sm text-[0.84rem] font-semibold text-[var(--color-forest-900)] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-antique-gold)]"
+                    consultation={view.contactHandoff.consultation}
+                    practicePossessivePronoun={view.practicePossessivePronoun}
+                    preferredName={view.preferredName}
+                    route={view.contactHandoff.route}
+                  >
+                    <span>What happens when I reach out?</span>
+                    <ArrowRight className="h-3.5 w-3.5 stroke-[1.8]" aria-hidden="true" />
+                  </ContactHandoff>
                 </div>
               </div>
             </div>
           </section>
         ) : null}
 
-        <div className="bcmc-container py-10 md:py-14 lg:py-16">
-          <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
-            <div className="overflow-hidden border-y border-[var(--color-border)] bg-white/72">
-              {view.peopleOftenComeToMeWhen ||
-              view.primaryPracticeAreas.length > 0 ? (
-                <SectionShell id="people-often" title="People often come to me when...">
+        <div className="bcmc-container space-y-10 py-10 md:space-y-14 md:py-14 lg:space-y-16 lg:py-16">
+          {view.peopleOftenComeToMeWhen ||
+          view.primaryPracticeAreas.length > 0 ? (
+            <section
+              id="people-often"
+              className="relative grid gap-8 overflow-hidden border-y border-[var(--color-border)] bg-white/72 px-5 py-8 md:px-8 md:py-10 lg:grid-cols-[minmax(0,1fr)_240px] lg:px-11 xl:grid-cols-[minmax(0,1fr)_260px]"
+            >
+              <div>
+                <SectionHeader title="People often come to me when..." />
                   {view.peopleOftenComeToMeWhen ? (
-                    <p className="max-w-3xl text-[0.96rem] leading-[1.6] text-[var(--color-stone)]">
+                    <p className="mt-6 max-w-3xl text-[0.96rem] leading-[1.6] text-[var(--color-stone)]">
                       {view.peopleOftenComeToMeWhen}
                     </p>
                   ) : null}
@@ -305,21 +332,54 @@ export default async function CounsellorProfilePage(
                       </div>
                     </div>
                   ) : null}
-                </SectionShell>
-              ) : null}
+              </div>
+              <div className="relative z-10 min-h-[250px] overflow-hidden border-t border-[var(--color-border)] pt-6 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-1">
+                {view.practiceContext ? (
+                  <div className="relative z-10">
+                    <h2 className="font-serif text-[1.35rem] leading-tight text-[var(--color-forest-900)]">
+                      About {view.preferredName}&apos;s practice
+                    </h2>
+                    <p className="mt-3 text-[0.9rem] leading-6 text-[var(--color-stone)]">
+                      <span className="font-semibold text-[var(--color-forest-900)]">
+                        {view.practiceContext.name}
+                      </span>
+                      {view.practiceContext.type ? (
+                        <>
+                          <br />
+                          {view.practiceContext.type}
+                        </>
+                      ) : null}
+                    </p>
+                  </div>
+                ) : null}
+              </div>
+              <Image
+                src="/images/decorative/practice-context-still-life.png"
+                alt=""
+                aria-hidden="true"
+                width={1402}
+                height={1122}
+                sizes="(min-width: 1280px) 500px, (min-width: 1024px) 460px, 0px"
+                className="pointer-events-none absolute bottom-0 right-0 hidden h-auto object-contain object-bottom-right opacity-95 mix-blend-multiply lg:block"
+                style={{ maxWidth: "none", width: "500px" }}
+              />
+            </section>
+          ) : null}
 
               {view.workingStyleGroups.length > 0 ? (
-                <SectionShell title="What working together can feel like" tone="soft-green">
-                  <p className="max-w-2xl text-[0.96rem] leading-[1.58] text-[var(--color-stone)]">
+            <section className="bg-[var(--color-mist)]/46 px-5 py-8 md:px-8 md:py-10 lg:px-11">
+              <div>
+                  <SectionHeader title="What working together can feel like" />
+                  <p className="mt-5 max-w-3xl text-[0.96rem] leading-[1.58] text-[var(--color-stone)]">
                     These are standardized BCMC descriptions based on how this
                     counsellor reports working with clients. They are not rankings
                     or a score.
                   </p>
-                  <div className="mt-7 grid gap-4 md:grid-cols-2">
+                <div className="mt-7 grid gap-0 border-y border-[var(--color-sage)]/60 bg-white/52 md:grid-cols-2 lg:grid-cols-4 lg:border-x">
                     {view.workingStyleGroups.map((group) => (
                       <article
                         key={group.label}
-                        className="grid min-h-[118px] grid-cols-[auto_minmax(0,1fr)] gap-3 rounded-[var(--radius-sm)] border border-[var(--color-sage)]/65 bg-white/78 p-4.5"
+                      className="grid min-h-[142px] grid-cols-[auto_minmax(0,1fr)] gap-3 border-b border-[var(--color-sage)]/60 p-5 last:border-b-0 md:[&:nth-child(2n)]:border-l lg:border-b-0 lg:border-l lg:first:border-l-0"
                       >
                         <WorkingStyleIcon label={group.label} />
                         <div>
@@ -331,22 +391,49 @@ export default async function CounsellorProfilePage(
                       </article>
                     ))}
                   </div>
-                </SectionShell>
+              </div>
+            </section>
               ) : null}
 
               {view.firstMeetingExpectation ? (
-                <SectionShell
-                  title="What you can expect when we first meet"
-                  variant="interlude"
-                >
-                  <p className="max-w-[42rem] text-[1.04rem] leading-[1.68] text-[var(--color-forest-900)]">
-                    {view.firstMeetingExpectation}
+            <section className="grid overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-forest-900)] text-[var(--color-cream)] shadow-[0_18px_54px_rgba(18,60,50,0.14)] lg:grid-cols-[minmax(180px,0.4fr)_minmax(0,1fr)]">
+              <div className="relative hidden min-h-[210px] overflow-hidden border-r border-white/10 lg:block">
+                <Image
+                  src="/images/decorative/botanical-branch.png"
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes="340px"
+                  className="pointer-events-none -left-12 bottom-[-22px] h-[118%] w-[128%] max-w-none object-contain object-left-bottom opacity-38 [filter:invert(93%)_sepia(18%)_saturate(308%)_hue-rotate(7deg)_brightness(96%)_contrast(88%)]"
+                />
+              </div>
+              <div className="px-6 py-7 md:px-9 md:py-8 lg:px-10">
+                <div className="flex items-center gap-3">
+                  <span
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-[var(--color-champagne)]"
+                    aria-hidden="true"
+                  >
+                    <MessageCircle className="h-4 w-4 stroke-[1.8]" />
+                  </span>
+                  <p className="text-[0.68rem] font-semibold uppercase leading-4 tracking-[0.16em] text-[var(--color-champagne)]">
+                    First meeting
                   </p>
-                </SectionShell>
+                </div>
+                <h2 className="mt-4 max-w-[32rem] font-serif text-[clamp(1.7rem,1.52rem+0.6vw,2.15rem)] leading-[1.12] tracking-normal">
+                  What you can expect when we first meet
+                </h2>
+                <p className="mt-5 max-w-[43rem] text-[1.04rem] leading-[1.72] text-[var(--color-cream)]/84">
+                  {view.firstMeetingExpectation}
+                </p>
+              </div>
+            </section>
               ) : null}
 
-              {view.faith ? (
-                <SectionShell title="Faith in counselling" tone="warm-cream">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.08fr)] lg:items-start">
+            {view.faith ? (
+              <section className="bg-[#F7F1E8]/42 px-5 py-8 md:px-8 md:py-9">
+                <SectionHeader title="Faith in counselling" />
+                <div className="mt-6">
                   {view.faith?.discussion ? (
                     <div>
                       <h3 className="text-[0.9rem] font-semibold leading-[1.42] text-[var(--color-forest-900)]">
@@ -389,15 +476,24 @@ export default async function CounsellorProfilePage(
                       ) : null}
                     </>
                   ) : null}
-                </SectionShell>
-              ) : null}
+                </div>
+              </section>
+            ) : null}
 
               {view.culturalFamiliarity.length > 0 ? (
-                <SectionShell
-                  title="Cultural & community familiarity"
-                  variant="supporting"
-                >
-                  <p className="max-w-3xl text-[0.96rem] leading-[1.58] text-[var(--color-stone)]">
+              <section className="relative overflow-hidden px-5 py-7 md:px-8 md:py-8 lg:pt-8">
+                <Image
+                  src="/images/decorative/Eucalyptus.png"
+                  alt=""
+                  aria-hidden="true"
+                  width={360}
+                  height={360}
+                  sizes="(min-width: 1024px) 210px, 0px"
+                  className="pointer-events-none absolute -bottom-14 -left-12 hidden w-[210px] max-w-none object-contain opacity-18 mix-blend-multiply lg:block"
+                />
+                <div className="relative z-10">
+                  <SectionHeader title="Cultural & community familiarity" variant="supporting" />
+                  <p className="mt-4 max-w-3xl text-[0.96rem] leading-[1.58] text-[var(--color-stone)]">
                     {view.preferredName} reports familiarity with these cultural,
                     family and community contexts. They can provide useful context
                     without assuming everyone from a community has the same
@@ -413,26 +509,30 @@ export default async function CounsellorProfilePage(
                       </span>
                     ))}
                   </div>
-                </SectionShell>
+                </div>
+              </section>
               ) : null}
+          </div>
 
-              <SectionShell
-                title="Practical details"
-                tone="green-cream"
-                variant="major-spaced"
-              >
-                <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 xl:grid-cols-3">
+          <section className="border-y border-[var(--color-border)] bg-[linear-gradient(180deg,rgba(238,245,241,0.5),rgba(248,245,240,0.42))] px-5 py-9 md:px-8 md:py-11 lg:px-11">
+            <div>
+              <SectionHeader title="Practical details" />
+                <div className="mt-8 grid gap-x-10 gap-y-7 sm:grid-cols-2 xl:grid-cols-3">
                   {view.detailGroups.map((group) => (
                     <PracticalDetailCard key={group.label} group={group} />
                   ))}
                 </div>
-              </SectionShell>
+            </div>
+          </section>
 
-              <SectionShell title="Professional background" variant="evidence">
-                <p className="max-w-2xl text-[0.96rem] leading-[1.58] text-[var(--color-stone)]">
+          <section className="grid gap-7 border-t border-[var(--color-border)] px-5 py-7 md:px-8 md:py-9 lg:grid-cols-[230px_minmax(0,1fr)] lg:px-11 xl:grid-cols-[250px_minmax(0,1fr)]">
+            <div>
+              <SectionHeader title="Professional background" variant="supporting" />
+                <p className="mt-4 max-w-2xl text-[0.96rem] leading-[1.58] text-[var(--color-stone)]">
                   Credentials and experience that inform my practice.
                 </p>
-                <div className="mt-6 divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
+            </div>
+                <div className="divide-y divide-[var(--color-border)] border-y border-[var(--color-border)]">
                   {view.professionalGroups.map((group) => (
                     <details key={group.label} className="group">
                       <summary className="flex min-h-13 cursor-pointer list-none items-center justify-between gap-4 py-4 text-[0.98rem] font-semibold text-[var(--color-forest-900)] marker:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-antique-gold)]">
@@ -457,72 +557,19 @@ export default async function CounsellorProfilePage(
                     </details>
                   ))}
                 </div>
-              </SectionShell>
-            </div>
-
-            <aside className="grid gap-4">
-              <SidebarCard title="Thinking about reaching out?">
-                {view.contactHandoff.consultation?.isFree ? (
-                  <p className="text-[0.9rem] leading-6 text-[var(--color-stone)]">
-                    A free {view.contactHandoff.consultation.minutes}-minute
-                    consultation is available.
-                  </p>
-                ) : null}
-                <ContactHandoff
-                  className="mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-forest-900)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-evergreen)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-antique-gold)]"
-                  consultation={view.contactHandoff.consultation}
-                  practicePossessivePronoun={view.practicePossessivePronoun}
-                  preferredName={view.preferredName}
-                  route={view.contactHandoff.route}
-                >
-                  <span>Contact {view.preferredName}</span>
-                  <ArrowRight className="h-3.5 w-3.5 stroke-[1.8]" aria-hidden="true" />
-                </ContactHandoff>
-                <ContactHandoff
-                  className="mt-3 inline-flex min-h-10 items-center gap-1.5 rounded-sm text-sm font-semibold text-[var(--color-forest-900)] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-antique-gold)]"
-                  consultation={view.contactHandoff.consultation}
-                  practicePossessivePronoun={view.practicePossessivePronoun}
-                  preferredName={view.preferredName}
-                  route={view.contactHandoff.route}
-                >
-                  <span>What happens when I reach out?</span>
-                  <ArrowRight className="h-3.5 w-3.5 stroke-[1.8]" aria-hidden="true" />
-                </ContactHandoff>
-                {view.contactFreshnessNote ? (
-                  <p className="mt-3 text-xs leading-5 text-[var(--color-stone)]">
-                    {view.contactFreshnessNote}
-                  </p>
-                ) : null}
-              </SidebarCard>
-
-              {view.practiceContext ? (
-                <SidebarCard title={`About ${view.preferredName}'s practice`}>
-                  <p className="text-[0.9rem] leading-6 text-[var(--color-stone)]">
-                    <span className="font-semibold text-[var(--color-forest-900)]">
-                      {view.practiceContext.name}
-                    </span>
-                    {view.practiceContext.type ? (
-                      <>
-                        <br />
-                        {view.practiceContext.type}
-                      </>
-                    ) : null}
-                  </p>
-                </SidebarCard>
-              ) : null}
-
-            </aside>
-          </div>
+          </section>
         </div>
 
         <section id="contact" className="bg-[var(--color-cream)] pb-12 text-[var(--color-cream)] md:pb-16">
           <div className="bcmc-container">
-            <div className="rounded-[var(--radius-lg)] bg-[var(--color-forest-900)] px-6 py-9 shadow-[0_18px_54px_rgba(18,60,50,0.16)] md:grid md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-8 md:px-9 md:py-10 lg:px-12">
+            <div className="rounded-[var(--radius-lg)] bg-[var(--color-forest-900)] px-6 py-9 shadow-[0_18px_54px_rgba(18,60,50,0.16)] md:grid md:grid-cols-[minmax(0,0.9fr)_minmax(240px,0.7fr)_auto] md:items-center md:gap-8 md:px-9 md:py-10 lg:px-12">
               <div>
                 <h2 className="font-serif text-[clamp(2rem,1.74rem+1vw,3rem)] leading-[1.06] tracking-normal">
                   Think {view.preferredName} might be worth talking to?
                 </h2>
-                <p className="mt-4 max-w-2xl text-[0.98rem] leading-7 text-[var(--color-cream)]/78">
+              </div>
+              <div className="mt-4 md:mt-0">
+                <p className="max-w-2xl text-[0.98rem] leading-7 text-[var(--color-cream)]/78">
                   You don&apos;t need to decide whether {view.subjectPronoun} is the
                   right counsellor before reaching out.
                 </p>
@@ -617,78 +664,6 @@ function HeroFactIcon({ label }: { label: string }) {
   return <CheckCircle2 className={className} aria-hidden="true" />;
 }
 
-function SectionShell({
-  children,
-  eyebrow,
-  id,
-  tone = "white",
-  title,
-  variant = "major",
-}: {
-  children: React.ReactNode;
-  eyebrow?: string;
-  id?: string;
-  tone?: "green-cream" | "soft-green" | "warm-cream" | "white";
-  title: string;
-  variant?: "evidence" | "interlude" | "major" | "major-spaced" | "supporting";
-}) {
-  const toneClass = {
-    "green-cream": "bg-[linear-gradient(180deg,rgba(238,245,241,0.5),rgba(248,245,240,0.42))]",
-    "soft-green": "bg-[var(--color-mist)]/46",
-    "warm-cream": "bg-[#F7F1E8]/42",
-    white: "",
-  }[tone];
-  const variantClass = {
-    evidence: "px-5 py-7 md:px-8 md:py-8 lg:px-11",
-    interlude: "px-5 py-10 md:px-8 md:py-12 lg:px-11",
-    major: "px-5 py-8 md:px-8 md:py-10 lg:px-11",
-    "major-spaced": "px-5 py-9 md:px-8 md:py-12 lg:px-11",
-    supporting: "px-5 py-7 md:px-8 md:py-8 lg:px-11",
-  }[variant];
-  const boundaryClass = {
-    evidence: "border-t border-[var(--color-border)]",
-    interlude: "",
-    major: "border-b border-[var(--color-border)]",
-    "major-spaced": "border-y border-[var(--color-border)]",
-    supporting: "",
-  }[variant];
-  const headingClass = {
-    evidence: "text-[clamp(1.35rem,1.28rem+0.25vw,1.55rem)]",
-    interlude: "text-[clamp(1.45rem,1.34rem+0.35vw,1.7rem)]",
-    major: "text-[clamp(1.7rem,1.58rem+0.38vw,1.9rem)]",
-    "major-spaced": "text-[clamp(1.7rem,1.58rem+0.38vw,1.9rem)]",
-    supporting: "text-[clamp(1.35rem,1.28rem+0.25vw,1.55rem)]",
-  }[variant];
-  const headerGapClass =
-    variant === "major" || variant === "major-spaced" ? "gap-4" : "gap-3";
-  const contentClass =
-    variant === "interlude"
-      ? "mt-5 pl-0 md:pl-[3rem]"
-      : variant === "supporting" || variant === "evidence"
-        ? "mt-4 pl-0 md:pl-[2.6rem]"
-        : "mt-6 pl-0 md:pl-[3rem]";
-
-  return (
-    <section
-      id={id}
-      className={`${variantClass} ${boundaryClass} ${toneClass}`}
-    >
-      <div className={`flex items-start ${headerGapClass}`}>
-        <SectionIcon title={title} variant={variant} />
-        <div className="min-w-0">
-          {eyebrow ? (
-            <p className="bcmc-eyebrow text-[var(--color-leaf)]">{eyebrow}</p>
-          ) : null}
-          <h2 className={`font-serif ${headingClass} leading-[1.12] tracking-normal text-[var(--color-forest-900)]`}>
-            {title}
-          </h2>
-        </div>
-      </div>
-      <div className={contentClass}>{children}</div>
-    </section>
-  );
-}
-
 function SectionIcon({
   title,
   variant,
@@ -729,25 +704,28 @@ function SectionIcon({
   );
 }
 
-function SidebarCard({
-  children,
-  id,
+function SectionHeader({
   title,
+  variant = "major",
 }: {
-  children: React.ReactNode;
-  id?: string;
   title: string;
+  variant?: "major" | "supporting";
 }) {
+  const isMajor = variant === "major";
+
   return (
-    <section
-      id={id}
-      className="rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-white/86 p-5 shadow-[0_14px_46px_rgba(18,60,50,0.045)]"
-    >
-      <h2 className="font-serif text-[1.35rem] leading-tight text-[var(--color-forest-900)]">
+    <div className={`flex items-start ${isMajor ? "gap-4" : "gap-3"}`}>
+      <SectionIcon title={title} variant={isMajor ? "major" : "supporting"} />
+      <h2
+        className={`font-serif leading-[1.12] tracking-normal text-[var(--color-forest-900)] ${
+          isMajor
+            ? "text-[clamp(1.7rem,1.58rem+0.38vw,1.9rem)]"
+            : "text-[clamp(1.35rem,1.28rem+0.25vw,1.55rem)]"
+        }`}
+      >
         {title}
       </h2>
-      <div className="mt-3.5">{children}</div>
-    </section>
+    </div>
   );
 }
 
