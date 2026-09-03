@@ -1510,18 +1510,19 @@ begin
   -- ----------------------------------------------------------
   -- RCC / verification
   --
-  -- Counsellor cannot repair these facts themselves.
-  -- Therefore evaluator uses needs_attention, not ordinary
-  -- missing-form state.
+  -- Intake must evaluate BCMC-owned credential verification
+  -- independently of public publication eligibility.
   -- ----------------------------------------------------------
 
   select count(*)::integer
   into v_rcc_count
-  from public.v_public_credential_verification v
-  where v.counsellor_id = v_counsellor_id
-    and v.credential_type_key = 'rcc'
-    and v.credential_status = 'active'
-    and v.currently_verified = true;
+  from public.professional_credentials pc
+  join verification.v_current_credential_verification v
+    on v.credential_id = pc.id
+  where pc.counsellor_id = v_counsellor_id
+    and pc.credential_type_key = 'rcc'
+    and pc.status_key = 'active'
+    and v.status_key = 'verified';
 
   if v_rcc_count = 0 then
     v_attention :=
