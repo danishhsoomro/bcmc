@@ -34,6 +34,7 @@ import {
 } from "@/components/counsellors/ContactHandoff";
 import { DisclosureTooltip } from "@/components/ui/DisclosureTooltip";
 import { evaluateFreshness, freshnessPolicies } from "@/lib/freshness";
+import { publicApproachName } from "@/lib/counsellor-workspace/professional-background";
 import { createProfileImageSignedUrl } from "@/lib/supabase/admin-storage";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
@@ -881,7 +882,7 @@ function ProfessionalIcon({ label }: { label: string }) {
     Icon = GraduationCap;
   } else if (label === "Experience") {
     Icon = BriefcaseBusiness;
-  } else if (label === "Approaches used") {
+  } else if (label === "Approaches") {
     Icon = BookOpenCheck;
   }
 
@@ -967,9 +968,7 @@ function buildProfileView(profile: CounsellorProfileRow) {
       ]),
     )
     .filter(isPresent);
-  const approaches = records(profile.therapeutic_approaches)
-    .map(readLabeledDescription)
-    .filter((item) => item.label);
+  const approaches = summarizeApproaches(records(profile.therapeutic_approaches));
   const professionalExperience = getProfessionalExperience(
     record(profile.professional_experience),
   );
@@ -1091,12 +1090,8 @@ function buildProfileView(profile: CounsellorProfileRow) {
       ["Education", education],
       ["Experience", professionalExperience ? [professionalExperience] : []],
       [
-        "Approaches used",
-        approaches.map((approach) =>
-          approach.description
-            ? `${approach.label}: ${approach.description}`
-            : approach.label,
-        ),
+        "Approaches",
+        approaches,
       ],
       ["Training and certifications", trainingCertifications],
     ]),
@@ -1651,8 +1646,13 @@ function getPracticeContext(practices: JsonRecord[]): PracticeContext | null {
 }
 
 function getProfessionalExperience(experience: JsonRecord | null) {
+  const startYear = numberValue(experience, "post_masters_practice_start_year");
   const years = numberValue(experience, "post_masters_years");
   const note = stringValue(experience, "experience_note");
+
+  if (startYear) {
+    return `Practising post-master's clinical counselling since ${startYear}`;
+  }
 
   if (years && note) {
     return `${years} years post-master's clinical practice. ${note}`;
@@ -1663,6 +1663,31 @@ function getProfessionalExperience(experience: JsonRecord | null) {
   }
 
   return note;
+}
+
+function summarizeApproaches(approaches: JsonRecord[]) {
+  return approaches
+    .map((approach) => {
+      const key = stringValue(approach, "approach_key") ?? "";
+      const label = stringValue(approach, "label") ?? "";
+      const relationship = stringValue(approach, "relationship_key");
+      const name = publicApproachName({ key, label });
+
+      if (!name) {
+        return null;
+      }
+
+      if (relationship === "uses") {
+        return `Uses ${name}`;
+      }
+
+      if (name.toLowerCase().includes("attachment")) {
+        return `Informed by ${name.toLowerCase()} approaches`;
+      }
+
+      return `Informed by ${name}`;
+    })
+    .filter(isPresent);
 }
 
 function credentialVerification(

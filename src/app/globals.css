@@ -153,6 +153,24 @@ img {
   text-transform: uppercase;
 }
 
+.bcmc-input {
+  min-height: 3rem;
+  width: 100%;
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  padding: 0.75rem 0.875rem;
+  color: var(--color-ink);
+  font-size: 1rem;
+  line-height: 1.5;
+  outline: none;
+}
+
+.bcmc-input:focus-visible {
+  border-color: var(--color-forest-900);
+  outline: 2px solid var(--color-antique-gold);
+  outline-offset: 2px;
+}
+
 @media (max-width: 767px) {
   .bcmc-type-display {
     font-size: clamp(2.7rem, 2.25rem + 7vw, 3.35rem);
